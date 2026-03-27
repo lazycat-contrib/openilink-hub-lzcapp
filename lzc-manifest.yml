@@ -1,0 +1,35 @@
+name: OpenILink Hub
+package: community.lazycat.app.openilink-hub
+version: 0.1.2
+min_os_version: 1.3.8
+description: "微信 ClawBot iLink 协议的开源消息管理平台 + App 应用市场"
+license: MIT
+homepage: https://github.com/openilink/openilink-hub
+author: OpenILink Team
+
+application:
+  subdomain: openilink-hub
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://openilink-hub:9800/
+
+services:
+  openilink-hub:
+    user: root
+    # ghcr.io/openilink/openilink-hub:0.1.2
+    image: registry.lazycat.cloud/czyt/openilink/openilink-hub:e49467b419578ccf
+    environment:
+      - RP_ORIGIN=https://${LAZYCAT_APP_DOMAIN}
+      - RP_ID=${LAZYCAT_APP_DOMAIN}
+    binds:
+      - /lzcapp/var/data:/var/lib/openilink-hub
+
+locales:
+  en:
+    name: "OpenILink Hub"
+    description: "Open-source message management platform + App Marketplace for WeChat ClawBot (iLink protocol)"
+  zh:
+    name: "OpenILink Hub"
+    description: "微信 ClawBot iLink 协议的开源消息管理平台 + App 应用市场"
